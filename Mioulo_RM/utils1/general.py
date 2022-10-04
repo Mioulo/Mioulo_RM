@@ -426,20 +426,20 @@ def non_max_suppression(prediction, conf_thres=1, iou_thres=0.1, classes=None, a
     Returns:
          list of detections, on (n,6) tensor per image [xyxy, conf, cls]
     """
-    # 训练的时候把这里注释掉
-    # # 尝试着修改了一下（mioulo）
-    # # 但是这个只对视频处理有用，detect图片的时候记得把这段代码注释了
-    # global temp_prediction
-    # pre_predic = 0
-    # temp_prediction = prediction[..., 4]#对本帧的预测结果做缓存
-    # pre_predic = temp_prediction
-    # prediction[..., 4] += pre_predic * 1
-    # prediction[..., 4]=prediction[..., 4]/2
-    # # 尝试着修改了一下（mioulo）
-    # # 但是这个只对视频处理有用，detect图片的时候记得把这段代码注释了
-    # # prediction[...,4]是框框旁边的置信度
-    # #对本帧的预测结果叠加一个上一帧的权重，目前权重设置为0.5，取决于不同任务，建议设置值在0.05~0.5之间
-    # # 有啥问题我不负责啊（mioulo）
+    # 训练的时候把这里注释掉(好像也用不着注释掉，之后也不会调用)
+    # 尝试着修改了一下（mioulo）
+    # 但是这个只对视频处理有用，detect图片的时候记得把这段代码注释了
+    global temp_prediction
+    pre_predic = 0
+    temp_prediction = prediction[..., 4]#对本帧的预测结果做缓存
+    pre_predic = temp_prediction
+    prediction[..., 4] += pre_predic * 1
+    prediction[..., 4]=prediction[..., 4]/2
+    # 尝试着修改了一下（mioulo）
+    # 但是这个只对视频处理有用，detect图片的时候记得把这段代码注释了
+    # prediction[...,4]是框框旁边的置信度
+    #对本帧的预测结果叠加一个上一帧的权重，目前权重设置为0.5，取决于不同任务，建议设置值在0.05~0.5之间
+    # 有啥问题我不负责啊（mioulo）
 
 
     nc = prediction.shape[2] - 5  # number of classes
